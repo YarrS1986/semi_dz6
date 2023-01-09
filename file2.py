@@ -9,7 +9,7 @@
 import re
 
 # a = "(1+2)*3"
-a = '-7-82+(((3*5+13)+1)+25*(3/5+8)-6)'
+a = '-7-82+(((3/5/13)+1)+25*(3/5+8)-6)'
 # print(eval(a))                # проверка верности решения
 
 
@@ -51,7 +51,7 @@ def calculate_management(lst):
         lst_app.append(lst[len(lst) - 1])
     lst_app = [lst_app[i] * -1 if lst_app[i - 1] == "-" else lst_app[i] for i in range(0, len(lst_app), 2)]
     summary = sum(lst_app)
-    print(summary)
+
     return summary
 
 
@@ -75,7 +75,7 @@ def list_without_brackets(lst, open_br, close_br):
             list_br.append(val)
         else:
              list_br.append(lst[i])
-    print(list_br)
+
     return check_for_brackets(list_br)
 
 
@@ -91,7 +91,7 @@ def check_for_brackets(lst):
                     break
         elif "(" not in lst:
             return lst
-    list_without_brackets(lst, open_br, close_br)
+    return list_without_brackets(lst, open_br, close_br)
 
 
 nums = re.findall(r'[+)(*/]|\D+|\d+', a)
@@ -105,11 +105,7 @@ elif nums[0] == "+":
     nums = [float(nums[0])] + [float(nums[i]) if nums[i].isdigit() else nums[i] for i in range(1, len(nums))]
 else:
     nums = [float(nums[i]) if nums[i].isdigit() else nums[i] for i in range(len(nums))]
-print(nums)
 
-check_for_brackets(nums)
+nums = check_for_brackets(nums)
 
-# nums = [nums[i] * -1 if nums[i - 1] == "-" else nums[i] for i in range(0, len(nums), 2)]
-# summary = sum(nums)
-# print(summary)
-
+print("Для выражения " + a + " ответ: {}".format(round(calculate_management(nums), 2)))
